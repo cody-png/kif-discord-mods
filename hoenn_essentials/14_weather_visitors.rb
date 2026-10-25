@@ -350,7 +350,7 @@ end
 module HoennWeatherVisitorEncounters
   def choose_wild_pokemon(enc_type, *args)
     normal = super
-    return normal unless normal && HoennEssentialsSettings.on?(:hs_encounters)
+    return normal unless normal && HoennSuiteSettings.on?(:hs_encounters)
     method = enc_type.to_s.downcase
     setting = if method.include?("fish") || method.include?("rod")
                 :hs_fishing
@@ -359,8 +359,8 @@ module HoennWeatherVisitorEncounters
               else
                 :hs_grass
               end
-    return normal unless HoennEssentialsSettings.on?(setting)
-    chance = (HoennWeatherVisitors::CHANCE * HoennEssentialsSettings.multiplier(:hs_frequency)).round
+    return normal unless HoennSuiteSettings.on?(setting)
+    chance = (HoennWeatherVisitors::CHANCE * HoennSuiteSettings.multiplier(:hs_frequency)).round
     return normal unless rand(100) < chance
     extra = HoennWeatherVisitors.entries(self, enc_type)
     return normal if extra.empty?
@@ -372,7 +372,7 @@ module HoennWeatherVisitorEncounters
   def list_weather_encounters(enc_type)
     native = super
     native = [] unless native.is_a?(Array)
-    return native unless HoennEssentialsSettings.on?(:hs_encounters)
+    return native unless HoennSuiteSettings.on?(:hs_encounters)
     extras = HoennWeatherVisitors.entries(self, enc_type)
     native + extras.reject { |entry| native.any? { |old| old[1] == entry[1] } }
   end

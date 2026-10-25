@@ -35,7 +35,7 @@ class HoennPokeNavScreen
     (installed.map { |app| app.to_sym } +
      [:CONTACTS, :POKECHALLENGE, :JUKEBOX, :WEATHER, :BERRYDEX,
       :BOXLINK, :FUSIONQUIZ, :MAP, :POKERADAR]).uniq.each do |app|
-      next unless HoennEssentialsUnlocks.available?(app)
+      next unless HoennSuiteUnlocks.available?(app)
       commands << [app.to_s, Pokenav.app_name(app)]
     end
     commands
@@ -282,7 +282,7 @@ end
 # Use the actual Hoenn quiz button and cursor art.
 class FusionQuizMenuButton
   def background_image
-    return "Mods/HoennEssentials/Graphics/Pictures/Pokegear/FusionQuiz/icon_button"
+    return "Mods/hoenn_essentials/Graphics/Pictures/Pokegear/FusionQuiz/icon_button"
   end
   def get_width
     return 150
@@ -322,7 +322,7 @@ class FusionQuizAppScene
   end
   def createCursor
     @sprites["cursor"] = IconSprite.new(0, 0, @viewport)
-    @sprites["cursor"].setBitmap("Mods/HoennEssentials/Graphics/Pictures/Pokegear/FusionQuiz/cursor")
+    @sprites["cursor"].setBitmap("Mods/hoenn_essentials/Graphics/Pictures/Pokegear/FusionQuiz/cursor")
     # The original cursor artwork is wider than the button art.
     @sprites["cursor"].zoom_x = 150.0 / 180.0
     @sprites["cursor"].z = 100000
@@ -346,7 +346,7 @@ end
 
 # Original Hoenn icon grid, with assets kept inside this mod.
 module HoennNavVisual
-  ROOT = "Mods/HoennEssentials/Graphics/Pictures/Pokegear/"
+  ROOT = "Mods/hoenn_essentials/Graphics/Pictures/Pokegear/"
 end
 
 class PokegearButton
@@ -410,7 +410,7 @@ class PokemonPokegear_Scene
 
     reloadBackground
     @sprites["UI"] = IconSprite.new(0,0,@viewport)
-    @sprites["UI"].setBitmap("Mods/HoennEssentials/Graphics/Pictures/Pokegear/ui_mainMenu")
+    @sprites["UI"].setBitmap("Mods/hoenn_essentials/Graphics/Pictures/Pokegear/ui_mainMenu")
 
     for i in 0...@commands.length
       col = i % GRID_COLUMNS
@@ -424,7 +424,7 @@ class PokemonPokegear_Scene
     pbSetSystemFont(@sprites["appName"].bitmap)
 
 
-    @sprites["pokenavIcon"] = AnimatedSprite.new("Mods/HoennEssentials/Graphics/Pictures/Pokegear/pokenav_icon", 8,32,32,4,@viewport)
+    @sprites["pokenavIcon"] = AnimatedSprite.new("Mods/hoenn_essentials/Graphics/Pictures/Pokegear/pokenav_icon", 8,32,32,4,@viewport)
     @sprites["pokenavIcon"].zoom_x = 2
     @sprites["pokenavIcon"].zoom_y = 2
     @sprites["pokenavIcon"].z = 10
@@ -493,8 +493,8 @@ class PokeRadarAppScene
   def start_y; 80; end
   def cursor_x_offset; 0; end
   def cursor_y_offset; 0; end
-  def cursor_path; "Mods/HoennEssentials/Graphics/Pictures/Pokeradar/icon_button"; end
-  def header_path; "Mods/HoennEssentials/Graphics/Pictures/Pokeradar/bg_header"; end
+  def cursor_path; "Mods/hoenn_essentials/Graphics/Pictures/Pokeradar/icon_button"; end
+  def header_path; "Mods/hoenn_essentials/Graphics/Pictures/Pokeradar/bg_header"; end
 
   def createCursor
     return if $PokemonTemp.pokeradar

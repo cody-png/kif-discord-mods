@@ -165,8 +165,8 @@ module HoennWeatherKIF
       @elapsed_active_seconds ||= 0.0
       @elapsed_active_seconds += 1.0 / [Graphics.frame_rate.to_f, 1.0].max
     end
-    if @elapsed_active_seconds.to_f >= (CHANGE_SECONDS / HoennEssentialsSettings.multiplier(:hs_weather_rate))
-      @elapsed_active_seconds -= (CHANGE_SECONDS / HoennEssentialsSettings.multiplier(:hs_weather_rate))
+    if @elapsed_active_seconds.to_f >= (CHANGE_SECONDS / HoennSuiteSettings.multiplier(:hs_weather_rate))
+      @elapsed_active_seconds -= (CHANGE_SECONDS / HoennSuiteSettings.multiplier(:hs_weather_rate))
       if true
         # Existing fronts can linger, change intensity, or fade.
         weather = $game_weather.current_weather

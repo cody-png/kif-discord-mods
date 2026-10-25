@@ -1,6 +1,6 @@
 # Hoenn's menu is a small command window, not another dialogue prompt.
 # Hoenn's compact trainer commands, with controller input fully consumed.
-module HoennEssentialsTrainerMenu
+module HoennSuiteTrainerMenu
   def self.release_cancel
     # The map also listens for B. Never give it the same keypress.
     3.times do
@@ -87,7 +87,7 @@ class Pokenav
   attr_accessor :hoenn_quiz_games_played
 end
 
-module HoennEssentialsQuizSave
+module HoennSuiteQuizSave
   def quiz_nav
     return nil unless $Trainer
     $Trainer.pokenav = Pokenav.new unless $Trainer.pokenav
@@ -140,4 +140,4 @@ module HoennEssentialsQuizSave
   end
 end
 
-FusionQuizAppScreen.prepend(HoennEssentialsQuizSave) if defined?(FusionQuizAppScreen) && !FusionQuizAppScreen.ancestors.include?(HoennEssentialsQuizSave)
+FusionQuizAppScreen.prepend(HoennSuiteQuizSave) if defined?(FusionQuizAppScreen) && !FusionQuizAppScreen.ancestors.include?(HoennSuiteQuizSave)

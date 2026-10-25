@@ -1207,7 +1207,7 @@ module HoennTrainerRematches
     return false unless key
     entry = contact(key[0], key[1])
     return false unless entry
-    choice = HoennEssentialsTrainerMenu.choose([_INTL('Keep following'), _INTL('Dismiss Partner')])
+    choice = HoennSuiteTrainerMenu.choose([_INTL('Keep following'), _INTL('Dismiss Partner')])
     dismiss_partner if choice == 1
     true
   end
@@ -1323,7 +1323,7 @@ module HoennTrainerRematches
         options << _INTL('Recruit Partner')
       end
       options << _INTL('Cancel')
-      choice = HoennEssentialsTrainerMenu.choose(options)
+      choice = HoennSuiteTrainerMenu.choose(options)
       case options[choice]
       when _INTL('View Team')
         view_team(entry)

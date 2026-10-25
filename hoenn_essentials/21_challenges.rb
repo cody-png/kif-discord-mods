@@ -29,7 +29,7 @@ class Player
       $Trainer.nb_completed_challenges = 0 unless $Trainer.nb_completed_challenges
       $Trainer.nb_completed_challenges += 1
       # Original Hoenn challenge jingle.
-      pbSEPlay("challenge_complete") if HoennEssentialsSettings.on?(:hs_challenge_sound)
+      pbSEPlay("challenge_complete") if HoennSuiteSettings.on?(:hs_challenge_sound)
     end
   end
 

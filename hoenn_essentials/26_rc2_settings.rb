@@ -1,5 +1,5 @@
 # Hoenn Essentials RC2 settings and PokéNav progression.
-module HoennEssentialsSettings
+module HoennSuiteSettings
   CATEGORY = "Hoenn Essentials"
   ENTRIES = [
     [:hs_encounters, "Weather encounters", ["On", "Off"], 0],
@@ -42,13 +42,13 @@ module HoennEssentialsSettings
   end
 end
 if defined?(::ModSettingsMenu) && ::ModSettingsMenu.respond_to?(:register)
-  HoennEssentialsSettings.register
+  HoennSuiteSettings.register
 else
   $MOD_SETTINGS_PENDING_REGISTRATIONS ||= []
-  $MOD_SETTINGS_PENDING_REGISTRATIONS << proc { HoennEssentialsSettings.register }
+  $MOD_SETTINGS_PENDING_REGISTRATIONS << proc { HoennSuiteSettings.register }
 end
 
-module HoennEssentialsUnlocks
+module HoennSuiteUnlocks
   def self.pokedex?
     return false unless $Trainer
     value = $Trainer.pokedex if $Trainer.respond_to?(:pokedex)
@@ -78,43 +78,43 @@ module HoennEssentialsUnlocks
   end
 end
 
-module HoennEssentialsWeatherEncounters
+module HoennSuiteWeatherEncounters
   def choose_wild_pokemon(enc_type, *args)
     # This wrapper controls the extra weather roll; the native roll is untouched.
     super
   end
 end
 
-module HoennEssentialsTrainerTuning
+module HoennSuiteTrainerTuning
   def increase_affinity(entry, points)
-    return super unless HoennEssentialsSettings.on?(:hs_relationships)
-    rate = HoennEssentialsSettings.multiplier(:hs_affinity_rate)
+    return super unless HoennSuiteSettings.on?(:hs_relationships)
+    rate = HoennSuiteSettings.multiplier(:hs_affinity_rate)
     adjusted = points.to_i == 0 ? 0 : [(points.to_i * rate).round, 1].max
     super(entry, adjusted)
   end
   def try_post_battle_gift(entry)
-    return false unless HoennEssentialsSettings.on?(:hs_gifts)
+    return false unless HoennSuiteSettings.on?(:hs_gifts)
     super
   end
   def grow_team(entry, levels = 1)
-    rate = HoennEssentialsSettings.multiplier(:hs_team_growth)
+    rate = HoennSuiteSettings.multiplier(:hs_team_growth)
     super(entry, [(levels.to_i * rate).round, 1].max)
   end
   def dynamic_team_event(entry)
-    rate = HoennEssentialsSettings.get(:hs_team_changes)
+    rate = HoennSuiteSettings.get(:hs_team_changes)
     return nil if rate == 0 && rand(2) == 0
     return super if rate != 2
     super || super
   end
   def trade_with_trainer(entry)
-    return false unless HoennEssentialsSettings.on?(:hs_trading)
+    return false unless HoennSuiteSettings.on?(:hs_trading)
     super
   end
   def recruit_partner(entry, event)
-    return false unless HoennEssentialsSettings.on?(:hs_partners)
+    return false unless HoennSuiteSettings.on?(:hs_partners)
     super
   end
 end
 if defined?(HoennTrainerRematches)
-  HoennTrainerRematches.singleton_class.prepend(HoennEssentialsTrainerTuning)
+  HoennTrainerRematches.singleton_class.prepend(HoennSuiteTrainerTuning)
 end
