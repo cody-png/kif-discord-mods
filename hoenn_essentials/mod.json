@@ -1,7 +1,7 @@
 {
   "id": "hoenn_essentials",
   "name": "Hoenn Essentials",
-  "version": "1.0.5-rc3",
+  "version": "1.0.6-rc4",
   "author": "TheMagnumChad",
   "description": "PokéNav, trainer relationships, and dynamic weather with encounters.",
   "scripts": [
