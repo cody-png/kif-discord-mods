@@ -1,4 +1,4 @@
-# KIF weather: local forecasts, time of day, and occasional moving fronts.
+# KIF weather: location-based forecasts and occasional moving fronts.
 module HoennWeatherKIF
   CHANGE_SECONDS = 300
   CHANCE_TO_CHANGE = 30
@@ -48,12 +48,6 @@ module HoennWeatherKIF
     meta && meta.outdoor_map
   end
 
-  def self.hour
-    pbGetTimeNow.hour
-  rescue StandardError
-    Time.now.hour
-  end
-
   def self.supported?(type)
     return true if type == :None
     !!GameData::Weather.try_get(type)
@@ -68,38 +62,26 @@ module HoennWeatherKIF
     ""
   end
 
-  # Kanto and Johto are temperate. Special weather belongs in special places.
+  # Every map draws from its own weather pool. No calendar required.
   def self.weights(id)
     name = map_name(id)
-    h = hour
-    month = pbGetTimeNow.month rescue Time.now.month
-    winter = [12, 1, 2].include?(month)
-    morning = h >= 5 && h < 11
-    night = h < 6 || h >= 19
-    w = { :None => 42, :Rain => 26, :Sunny => (night ? 0 : 18),
-          :Wind => 12, :Fog => (morning ? 12 : 5), :Storm => 4 }
-    # Seasonal snowfall is plausible in the temperate towns and routes.
-    if winter
-      w[:Snow] = 12
-      w[:Blizzard] = 1
-      w[:Rain] = 18
-    end
-    route = name[/\\broute\\s*0*(\\d+)\\b/, 1].to_i
+    w = { :None => 42, :Rain => 26, :Sunny => 18,
+          :Wind => 12, :Fog => 7, :Storm => 4 }
+    route = name[/\broute\s*0*(\d+)\b/, 1].to_i
     if name.match?(/forest|woods|grove|ilex|national park|safari/)
       w[:Rain] += 10
       w[:Fog] += 14
-      w[:Sunny] = 6 unless night
+      w[:Sunny] = 6
     elsif name.match?(/sea|ocean|coast|beach|island|whirl|cianwood|vermilion|olivine|cinnabar/)
       w[:Rain] += 12
       w[:Wind] += 16
       w[:Storm] += 4
-    elsif name.match?(/mount|mt\\.?|peak|summit|silver|ice path|seafoam|blackthorn|indigo plateau/)
-      w[:Snow] = winter ? 35 : 12
-      w[:Blizzard] = winter ? 10 : 2
+    elsif name.match?(/mount|mt\.?|peak|summit|silver|ice path|seafoam|blackthorn|indigo plateau/)
+      w[:Snow] = 25
+      w[:Blizzard] = 5
       w[:Wind] += 15
       w[:Fog] += 6
     end
-    # Route-specific geography, not an indiscriminate region-wide roll.
     if route.between?(1, 48)
       case route
       when 10, 33, 43
@@ -110,7 +92,7 @@ module HoennWeatherKIF
         w[:Rain] += 12
       when 26, 27, 28, 42, 44, 45, 46, 47, 48
         w[:Wind] += 12
-        w[:Snow] = winter ? 22 : 3
+        w[:Snow] = 8
       when 2, 30, 31, 34, 35, 36, 37
         w[:Fog] += 10
         w[:Rain] += 8
@@ -120,11 +102,7 @@ module HoennWeatherKIF
       w[:Rain] += 28
       w[:Storm] += 6
     end
-    # Only volcanic ground can produce airborne ash in this region.
-    if name.match?(/cinnabar|volcano|volcanic|ember|burned tower/)
-      w[:Ash] = 9
-    end
-    # No natural deserts in Kanto or Johto: sandstorms are never generated.
+    w[:Ash] = 9 if name.match?(/cinnabar|volcano|volcanic|ember|burned tower/)
     w.delete(:Sandstorm)
     w.select { |type, weight| weight > 0 && supported?(type) }
   end
@@ -188,7 +166,6 @@ module HoennWeatherKIF
     id = $game_map.map_id
     type, intensity = outdoors?(id) ? ($game_weather.current_weather[id] || [:None, 0]) : [:None, 0]
     type, intensity = :None, 0 unless supported?(type)
-    type, intensity = :None, 0 if type == :Sunny && (hour >= 19 || hour < 6)
     persist_state
     display = [id, type, intensity]
     if @last_display != display
