@@ -32,7 +32,7 @@ All in the Shiny Soul Mod Options menu. They apply to every save file and are ke
 
 ## Changes for KIF
 
-- The original put its menu in PIF's own Options screen, where it never showed up in KIF. The menu is now under Options > KIF Settings > Mods.
+- The original put its button on PIF's own Options screen. It is now only under Options > KIF Settings > Mods, so it no longer shows twice.
 - The original forgot your choices every time the game started. They are now kept.
 - With KIF's Shiny Animation setting (Options > KIF Settings > Shinies) set to Off, the colour flash is skipped too.
 

@@ -1,6 +1,6 @@
 #===============================================================================
 # Kuray Auto-Capture & Improved Auto-Battle Mod
-# Features: 100% Catch Rate (Conditional), Auto-Capture, Multi-Wild Capture
+# Features: 100% Catch Rate (Conditional), Auto-Capture
 # Version: 1.6
 #===============================================================================
 class PokeBattle_AI
@@ -57,7 +57,9 @@ class PokeBattle_AI
 
   alias kuray_pbAIRandom_v2 pbAIRandom
   def pbAIRandom(x)
-    return 0 if @kuray_calculating_moves && $PokemonSystem && $PokemonSystem.autobattler == 1
+    # KIF fix: only while Auto-Capture is On, so Auto-Battle is unchanged with it Off
+    return 0 if @kuray_calculating_moves && $PokemonSystem && $PokemonSystem.autobattler == 1 &&
+                defined?(XorronModSettings) && XorronModSettings.enabled?("auto_capture_enabled")
     return kuray_pbAIRandom_v2(x)
   end
 
@@ -119,37 +121,8 @@ module PokeBattle_BattleCommon
   end
 end
 
-# --- MULTI-WILD CAPTURE (Safe Version) ---
-class PokeBattle_Battle
-  alias kuray_pbOpposingBattlerCount_v2 pbOpposingBattlerCount
-  def pbOpposingBattlerCount(idxBattler=0)
-    # If we are checking if we can throw a ball and mod is ON, pretend there is only 1 enemy
-    # KIF fix: a flag set around the ball check replaces scanning `caller` on every call, and the
-    # Silver boss battle keeps its "too agitated to aim" lock
-    if $xorron_ball_check && wildBattle? && !($game_switches && $game_switches[SWITCH_SILVERBOSS_BATTLE]) &&
-       defined?(XorronModSettings) && XorronModSettings.enabled?("catch_multiple_wild_enabled")
-      return 1
-    end
-    kuray_pbOpposingBattlerCount_v2(idxBattler)
-  end
-end
-
-module ItemHandlers
-  class << self
-    alias kuray_triggerCanUseInBattle_v2 triggerCanUseInBattle unless method_defined?(:kuray_triggerCanUseInBattle_v2)
-    def triggerCanUseInBattle(item, *args)
-      ball = (GameData::Item.get(item).is_poke_ball? rescue false)
-      return kuray_triggerCanUseInBattle_v2(item, *args) unless ball
-      old = $xorron_ball_check
-      $xorron_ball_check = true
-      begin
-        return kuray_triggerCanUseInBattle_v2(item, *args)
-      ensure
-        $xorron_ball_check = old
-      end
-    end
-  end
-end
+# KIF fix: the Multi-Wild Capture hooks were removed. PIF already lets you throw balls at 2 or more
+# wild Pokemon (it only blocks them in the Silver boss battle, which the mod kept), so they did nothing.
 
 # --- PERSISTENCE ---
 class PokeBattle_Battle

@@ -144,5 +144,6 @@ Other Pokémon:
 
 ## Limits
 
+- It can't be used with KIF: Elite Redux, which changes the same Pokémon in its own way. While KIF: Elite Redux is On, this mod doesn't start and Options > Mods > Installed shows it as BLOCKED. Switch one of them Off.
 - When the mod is off, types go back, but Pokémon you own keep their reworked stats until they level up, and an ability they got from this mod until they evolve.
 - Pokémon in the Day Care are not part of the stat update. They get the new stats when they gain a level there.

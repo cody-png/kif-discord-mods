@@ -29,10 +29,10 @@ By Theanimenerd478247. Imported from the KIF Discord for KIF's Discord Mods cata
 
 - The original mod had no way to get the item. KIF's copy adds it to the Kuray Shop at the Eviolite's price.
 - The item's bag icon and its held-item icon now show up in KIF.
+- The Eviolex has its own item number. Before, it used the Favorite Outfit's number, so the Favorite Outfit showed the Eviolex's name and description (and in French, the Eviolex was named "Tenue Favorite"). Saves that hold an Eviolex still load.
 
 ## Limits
 
 - The Kuray Shop is the only place that sells it.
 - Streamer's Dream does not make it free.
 - Like other held items, it does nothing while held items are blocked, for example by Klutz, Embargo or Magic Room.
-- While this mod is on, the Favorite Outfit item shows the Eviolex's name and description. It still works as the Favorite Outfit.

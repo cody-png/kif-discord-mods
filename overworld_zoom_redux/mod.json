@@ -1,7 +1,7 @@
 {
   "name": "Journey Camera & Perspective",
   "id": "overworld_zoom_redux",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "author": "Copilot (Imported from Discord)",
   "description": "Improves how the world is framed with perspective options and adds an immersive Journey Camera with albums, location checklists, and battle photography.",
   "tags": [

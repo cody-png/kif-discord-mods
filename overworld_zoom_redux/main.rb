@@ -491,8 +491,9 @@ else
       return desired_scale < BASE_SCALE || tilt_enabled? || widescreen_enabled? || screen_resized?
     end
 
+    # KIF fix: when KIF's Map Zoom (Far) draws the map, its camera already fits the wide screen
     def custom_camera?
-      return active? || screen_resized?
+      return active? || (screen_resized? && !(defined?(KIF::MapZoom) && KIF::MapZoom.zoomed?))
     end
 
     def current_scale

@@ -13,7 +13,6 @@ module XorronModSettings
     "follower_system_enabled" => false,
     "follower_formation_enabled" => true,
     "follower_idle_enabled" => true,
-    "f_auto_refresh_enabled" => true,
     "follower_shapeshift_enabled" => true,
     "follower_shapeshift_speed" => 1, # 0:Fast, 1:Normal, 2:Slow, 3:Very Slow
     "follower_limit" => 6,
@@ -25,13 +24,14 @@ module XorronModSettings
     "f_slot_mode_5" => "body",
     "auto_capture_enabled" => true,
     "auto_capture_shinies_always" => false,
-    "catch_multiple_wild_enabled" => true,
     "100_catch_rate_enabled" => true
   }
 
   # KIF fix: values live in KIF's ModSettingsMenu (Options > KIF Settings > Mods, kept in the
   # save folder) instead of Mods/ModData/xorron_global_settings.txt. @settings above holds the
   # defaults, and is the store only when there is no ModSettingsMenu.
+  # KIF fix: "Catch Multi-Wild" and "Auto Refresh Slots" were removed (no effect in KIF); values
+  # stored for them are left alone and never read.
   SLOT_MODES = ["body", "head", "auto", "off"]
 
   def self.ms?
@@ -116,10 +116,8 @@ module XorronModSettings
     ["follower_shapeshift_enabled", "Follower Shapeshift", :toggle, "Interface", "Fused followers switch between head and body sprites."],
     ["follower_shapeshift_speed", "Shapeshift Speed", ["Fast", "Normal", "Slow", "Very Slow"], "Interface", "How often fused followers switch sprites."],
     ["follower_idle_enabled", "Follower Idle Anim", :toggle, "Interface", "Followers animate while standing."],
-    ["f_auto_refresh_enabled", "Auto Refresh Slots", :toggle, "Interface", "Followers update when the party changes."],
     ["auto_capture_enabled", "Auto-Capture", :toggle, "Battle Mechanics", "With Auto-Battle on, throws a ball at species you don't own."],
     ["auto_capture_shinies_always", "Catch All Shinies", :toggle, "Battle Mechanics", "Auto-Capture also targets shinies of species you own."],
-    ["catch_multiple_wild_enabled", "Catch Multi-Wild", :toggle, "Battle Mechanics", "Balls can be thrown when there are several wild Pokemon."],
     ["100_catch_rate_enabled", "100% Catch Rate", :toggle, "Battle Mechanics", "Species you don't own (and shinies with Catch All Shinies) are always caught."]
   ] + (0..5).map { |i| ["f_slot_mode_#{i}", "Follower Slot #{i + 1} Mode", ["Body", "Head", "Auto", "Off"], "Interface", "Sprite this party slot's follower uses."] }
 
@@ -156,11 +154,9 @@ module XorronModSettings
         _INTL("Follower Shapeshift: {1}", enabled?("follower_shapeshift_enabled") ? "[ON]" : "[OFF]"),
         _INTL("Shapeshift Speed: {1}", shift_speed), # NEU
         _INTL("Follower Idle Anim: {1}", enabled?("follower_idle_enabled") ? "[ON]" : "[OFF]"),
-        _INTL("Auto Refresh Slots: {1}", enabled?("f_auto_refresh_enabled") ? "[ON]" : "[OFF]"),
         _INTL("--- Kuray Auto-Capture ---"),
         _INTL("Auto-Capture: {1}", enabled?("auto_capture_enabled") ? "[ON]" : "[OFF]"),
         _INTL("Catch All Shinies: {1}", enabled?("auto_capture_shinies_always") ? "[ON]" : "[OFF]"),
-        _INTL("Catch Multi-Wild: {1}", enabled?("catch_multiple_wild_enabled") ? "[ON]" : "[OFF]"),
         _INTL("100% Catch Rate: {1}", enabled?("100_catch_rate_enabled") ? "[ON]" : "[OFF]"),
         _INTL("Configure Follower Modes"),
         _INTL("Back")
@@ -173,7 +169,7 @@ module XorronModSettings
       
       cmd = commands[choice]
       case cmd
-      when /Xorrons Map Progress/ then set("xorron_mod_enabled", !enabled?("xorron_mod_enabled"))
+      when /^Xorrons Map Progress:/ then set("xorron_mod_enabled", !enabled?("xorron_mod_enabled"))   # KIF fix: anchored, so the Reset entry below is reached
       when /Wandering Trainers:/ then set("wandering_trainers_enabled", !enabled?("wandering_trainers_enabled"))
       when /Wandering Trainer Limit/ 
         new_limit = (get("wandering_trainers_limit") || 10) % 10 + 1
@@ -186,10 +182,8 @@ module XorronModSettings
       when /Follower Shapeshift/ then set("follower_shapeshift_enabled", !enabled?("follower_shapeshift_enabled"))
       when /Shapeshift Speed/ then set("follower_shapeshift_speed", ((get("follower_shapeshift_speed") || 1) + 1) % 4) # NEU
       when /Follower Idle Anim/ then set("follower_idle_enabled", !enabled?("follower_idle_enabled"))
-      when /Auto Refresh Slots/ then set("f_auto_refresh_enabled", !enabled?("f_auto_refresh_enabled"))
       when /Auto-Capture:/ then set("auto_capture_enabled", !enabled?("auto_capture_enabled"))
       when /Catch All Shinies:/ then set("auto_capture_shinies_always", !enabled?("auto_capture_shinies_always"))
-      when /Catch Multi-Wild:/ then set("catch_multiple_wild_enabled", !enabled?("catch_multiple_wild_enabled"))
       when /100% Catch Rate:/ then set("100_catch_rate_enabled", !enabled?("100_catch_rate_enabled"))
       when /Configure Follower Modes/ then self.open_follower_config
       when /Reset Xorrons Map Progress/

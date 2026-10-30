@@ -11,7 +11,6 @@ Several small mods in one pack, with one settings page. The feature descriptions
 - **Xorrons Map Progress:** win battles on a map and the wild Pokémon there get stronger. Lose and they get weaker again.
 - **Auto-Capture:** with KIF's Auto-Battle on, Auto-Battle throws a ball at wild Pokémon you have not caught yet.
 - **100% Catch Rate:** a ball always catches a species you have not caught yet.
-- **Catch Multi-Wild:** meant to let you throw balls when 2 or more wild Pokémon are out. KIF already allows that, so it changes nothing.
 - **Infinite Safari:** no step limit in the Safari Zone.
 - **Graphic Overhaul (FPS):** draws the overworld at 60 or 90 frames a second.
 - **Shiny sprites:** shiny followers, and shiny Pokémon walking with wandering trainers, show their shiny colours on the map.
@@ -21,7 +20,7 @@ Several small mods in one pack, with one settings page. The feature descriptions
 - Options > Mods > Browse > Discord Mods > Xorron's Mods Collection.
 - It starts working the next time the game starts.
 - If Mods is greyed out, set Options > KIF Settings > Modules > Mod Settings to On first.
-- Most parts are On right after installing: Wandering Trainers, Xorrons Map Progress, Infinite Safari, Auto-Capture, Catch Multi-Wild and 100% Catch Rate. The Follower System starts Off. Turn off what you don't want (see Settings).
+- Most parts are On right after installing: Wandering Trainers, Xorrons Map Progress, Infinite Safari, Auto-Capture and 100% Catch Rate. The Follower System starts Off. Turn off what you don't want (see Settings).
 
 ## How to use it
 
@@ -60,6 +59,7 @@ Several small mods in one pack, with one settings page. The feature descriptions
 - A battle counts as a loss if you lose it, or if one of your Pokémon is fainted at the end that wasn't at the start. A loss lowers that map's bonus by 1 and starts the count of 5 again.
 - Running away counts as neither a win nor a loss, unless one of your Pokémon fainted.
 - Wild Pokémon never go above level 100.
+- To clear the progress of every map, open the Xorron Mod Menu and pick Reset Xorrons Map Progress.
 
 ### Auto-Capture
 
@@ -70,6 +70,7 @@ Several small mods in one pack, with one settings page. The feature descriptions
   - any species you have not caught.
 - It throws the best ball you carry: Master Ball, then Ultra Ball, Great Ball, Poke Ball, then any other ball. Thrown balls are used up as normal.
 - With no target or no ball, Auto-Battle fights as usual.
+- While Auto-Capture is On, Auto-Battle also leaves chance out of the moves it picks for you. With Auto-Capture Off, Auto-Battle picks moves the same as without this mod.
 - If Auto-Battle's Stop on Shiny is On, Auto-Battle switches itself off when a shiny appears, so you throw the ball yourself.
 
 ### 100% Catch Rate
@@ -77,11 +78,6 @@ Several small mods in one pack, with one settings page. The feature descriptions
 - Any ball you throw at a wild species you have not caught yet catches it, as a critical capture. Where the game blocks catching, such as in trainer battles, it stays blocked.
 - With Catch All Shinies On, shinies of species you already have are caught the same way.
 - It works with or without Auto-Battle.
-
-### Catch Multi-Wild
-
-- It was made to let you throw balls in wild battles with 2 or more wild Pokémon.
-- KIF already lets you do that, so this setting changes nothing you would notice.
 
 ### Infinite Safari
 
@@ -113,10 +109,8 @@ The settings, with their defaults:
 - **Follower Shapeshift:** Off or On. Default On.
 - **Shapeshift Speed:** Fast, Normal, Slow or Very Slow. Default Normal. Each step waits about twice as long as the one before.
 - **Follower Idle Anim:** Off or On. Default On. Followers keep stepping in place while they stand.
-- **Auto Refresh Slots:** Off or On. Default On. It has no effect (see Limits).
 - **Auto-Capture:** Off or On. Default On.
 - **Catch All Shinies:** Off or On. Default Off.
-- **Catch Multi-Wild:** Off or On. Default On. It has no effect in KIF (see Catch Multi-Wild).
 - **100% Catch Rate:** Off or On. Default On.
 - **Follower Slot 1 Mode** to **Follower Slot 6 Mode:** Body, Head, Auto or Off. Default Body.
 
@@ -133,12 +127,13 @@ The settings, with their defaults:
 - Auto-Capture: in a double battle it throws one ball each turn, not one for each of your Pokémon.
 - With Auto-Battle on, the opponent's move choices are no longer changed by the mod, items the opponent uses no longer come out of your Bag, and items that are not used up stay in your Bag.
 - Wandering Doctors and Backpackers were removed, because battles with them crashed in this version of the game.
+- The Catch Multi-Wild and Auto Refresh Slots settings were removed. They had no effect: KIF already lets you throw balls at 2 or more wild Pokémon, and followers always update when your party changes.
+- Reset Xorrons Map Progress in the Xorron Mod Menu now clears map progress. In the original it switched Xorrons Map Progress On or Off instead.
+- With Auto-Capture Off, the mod no longer changes how Auto-Battle picks your moves.
 
 ## Limits
 
-- The Reset Xorrons Map Progress entry in the Xorron Mod Menu does not reset anything. It switches Xorrons Map Progress On or Off instead. There is no other way in the game to clear map progress.
 - Map progress belongs to the game folder, not to a save file. All your saves share it, and a new game starts with it.
-- Auto Refresh Slots changes nothing. Followers always update when your party changes.
 - The Recall to Ball question reads "Recall {1}?" instead of showing the Pokémon's name.
 - A recalled follower stays away, in every save, until you set its slot mode back.
 - Changing Follower Idle Anim takes effect the next time you change maps, finish a battle or your party changes.
@@ -148,4 +143,3 @@ The settings, with their defaults:
 - If you go into a map without wandering trainers, such as a house or a Pokémon Center, and come back out to the same map, the trainers you had not beaten are gone and no new ones take their place until you visit another map that has them.
 - If your party is too small for a Duo or Trio, the choice still reads Challenge Trainer, but the nearby trainers join the battle anyway.
 - In a Duo or Trio battle, the joined team is cut to its first 6 Pokémon.
-- Catch Multi-Wild does nothing in KIF, which already lets you throw balls at 2 or more wild Pokémon.

@@ -55,6 +55,7 @@ Options > KIF Settings > Mods > Journey Camera & Perspective settings. The same 
 - Zoom and perspective work with KIF's frame rate setting above 40 fps.
 - Underwater tiles and events meant to sit below the player now draw in the right order while zoomed.
 - Adaptive Widescreen only looks at the game's own window. Before, switching to another program could make it read that program's window.
+- With Adaptive Widescreen on and KIF's Map Zoom (Options > Graphics) set to Far, the player is in the middle of the screen and the camera stops at map edges. Before, the player was drawn in the top-left part of the screen.
 - The Journey Camera is left out of save files and put back when the save loads. A save made with this mod still loads cleanly after you remove it, with no unknown item in the Bag. Install the mod again and the camera, your photos and your checklists come back.
 - The album no longer shows "Photo unavailable" for every photo when the game folder has no cache folder yet.
 

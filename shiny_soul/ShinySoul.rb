@@ -156,8 +156,8 @@ end
 
 ShinySoulMod.load_settings
 
-# KIF fix: PIF 6.8.2's options screens never show rows added to the base
-# PokemonOption_Scene, so the menu is opened from Options > KIF Settings > Mods
+# KIF fix: the menu is opened from Options > KIF Settings > Mods only. The
+# original's PokemonOption_Scene row is gone: KIF listed it as a second button
 if defined?(ModSettingsMenu)
   ModSettingsMenu.register(:shiny_soul_menu, {
     :name => "Shiny Soul Options",
@@ -166,16 +166,6 @@ if defined?(ModSettingsMenu)
     :on_press => proc { ShinySoulMod.open_menu },
     :category => "Interface"
   })
-end
-
-# Add Shiny Soul Mod to the options menu
-class PokemonOption_Scene
-  alias shinysoulmod_pbGetOptions pbGetOptions
-  def pbGetOptions(inloadscreen = false)
-    options = shinysoulmod_pbGetOptions(inloadscreen)
-    options << ButtonOption.new(_INTL("Shiny Soul Options"), proc { ShinySoulMod.open_menu })
-    options
-  end
 end
 
 # Override shiny animation logic in PokeBattle_Scene

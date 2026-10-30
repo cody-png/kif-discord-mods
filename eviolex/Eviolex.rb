@@ -9,9 +9,13 @@
 #===============================================================================
 
 def eviolex_register_items
+  # KIF fix: was 693, KIF's Favorite Outfit key item. Take the first free number from
+  # 9410 (K-Eggs use 2000+, Megas 7000+, Tera Orb 8800+, Journey Camera 9401).
+  n = 9410
+  n += 1 while GameData::Item.exists?(n) && GameData::Item.get(n).id != :EVIOLEX
   GameData::Item.register({
     :id          => :EVIOLEX,
-    :id_number   => 693,
+    :id_number   => n,
     :name        => "Eviolex",
     :name_plural => "Eviolexes",
     :pocket      => 1,
@@ -23,9 +27,9 @@ def eviolex_register_items
     :move        => nil
   }) unless GameData::Item.exists?(:EVIOLEX)
 
-  MessageTypes.set(MessageTypes::Items,            693, "Eviolex")
-  MessageTypes.set(MessageTypes::ItemPlurals,      693, "Eviolexes")
-  MessageTypes.set(MessageTypes::ItemDescriptions, 693, "Boosts the Attack and Sp. Atk of a Pokemon that can still evolve by 50%.")
+  MessageTypes.set(MessageTypes::Items,            n, "Eviolex")
+  MessageTypes.set(MessageTypes::ItemPlurals,      n, "Eviolexes")
+  MessageTypes.set(MessageTypes::ItemDescriptions, n, "Boosts the Attack and Sp. Atk of a Pokemon that can still evolve by 50%.")
 end
 
 #===============================================================================

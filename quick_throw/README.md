@@ -58,9 +58,11 @@ Options > KIF Settings > Mods > Quick Throw settings > Quick Throw opens the mod
 - The Quick Throw row in KIF's Mods settings opens the mod's menu.
 - Each save file keeps its own selected ball, and it comes back after loading. Saves still load if you remove the mod.
 - After you switch Pokémon, the command cursor goes back to Fight, as in the base game.
+- A quick throw makes the game's ball checks first, with the same messages as the Bag: KIF's Nuzlocke rules, a full PC, and in a double battle only your first Pokémon can throw. When a throw is refused or you press Back at the foe choice, the same Pokémon chooses again.
+- In the Bug-Catching Contest the throw key only shows a message. Use Ball there to throw Sport Balls. In the original, it ended your turn without a throw.
 
 ## Limits
 
 - With EBDX Battles On, there is no ball icon and Auto-Select Remembered does nothing. Ball Info shows the selected ball.
 - The catch rate is the mod's own estimate, not the game's roll.
-- A quick throw skips the checks the Bag makes first, such as the full PC message, or that only your first Pokémon in a double battle can throw.
+- KIF's Endgame Challenge blocks the Bag in trainer battles, but not the throw key.

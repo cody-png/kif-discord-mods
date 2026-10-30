@@ -1766,6 +1766,12 @@ class PokeBattle_Scene
   prepend QuickThrowPatch
   
   def pbCanUseQuickPokeBall?(idxBattler)
+    # KIF fix: the contest throws its own Sport Balls; a quick throw there only lost the turn
+    if defined?(PokeBattle_BugContestBattle) && @battle.is_a?(PokeBattle_BugContestBattle)
+      @battle.pbDisplay(_INTL("In the contest, use Ball to throw Sport Balls."))
+      return false
+    end
+
     if !$lastUsedPokeBall
       @battle.pbDisplay(_INTL("You haven't used a Poké Ball yet!"))
       return false
@@ -1945,7 +1951,8 @@ class PokeBattle_Battle
       if pbQuickPokeBall(idxBattler, firstAction)
         return -10
       else
-        return -1  
+        # KIF fix: refused or cancelled, this Pokemon chooses again (as after the Bag); -1 went back to the previous one
+        return pbCommandMenu(idxBattler, firstAction)
       end
     elsif ret == -11
       return -10
@@ -2001,7 +2008,11 @@ class PokeBattle_Battle
       @scene.pbDisplay(_INTL("There are no valid targets!"))
       return false
     end
-    
+
+    # KIF fix: the Bag's ball check (Nuzlocke, full PC, only the first Pokemon in doubles...)
+    target = @battlers[idxTarget]
+    return false if !ItemHandlers.triggerCanUseInBattle(ball, target.pokemon, target, nil, firstAction, self, @scene)
+
     if pbRegisterItem(idxBattler, ball, idxTarget, nil)
       return true
     end
